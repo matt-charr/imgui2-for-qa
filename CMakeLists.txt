@@ -61,6 +61,11 @@ file(
     GLOB IMFILEBROWSER_SRC
     ${PROJECT_SOURCE_DIR}/imgui-filebrowser-for-qa/*.cpp
 )
+    # implot3d.
+file(
+    GLOB IMPLOT3D_SRC
+    ${PROJECT_SOURCE_DIR}/implot3d-for-qa/*.cpp
+)
 
 # header files.
     # imgui.
@@ -81,18 +86,26 @@ file(
     ${PROJECT_SOURCE_DIR}/imgui-filebrowser-for-qa/*.h
     ${PROJECT_SOURCE_DIR}/imgui-filebrowser-for-qa/*.hpp
 )
+    # implot3d.
+file(
+    GLOB IMPLOT3D_INC
+    ${PROJECT_SOURCE_DIR}/implot3d-for-qa/*.h
+    ${PROJECT_SOURCE_DIR}/implot3d-for-qa/*.hpp
+)
 
 if(IMGUI_BUILD_STATIC)
-    add_library(${IMGUI_PROJECT} STATIC ${IMGUI_SRC} ${IMPLOT_SRC} ${IMFILEBROWSER_SRC})
+    add_library(${IMGUI_PROJECT} STATIC ${IMGUI_SRC} ${IMPLOT_SRC} ${IMFILEBROWSER_SRC} ${IMPLOT3D_SRC})
 else()
-    add_library(${IMGUI_PROJECT} SHARED ${IMGUI_SRC} ${IMPLOT_SRC} ${IMFILEBROWSER_SRC})
+    add_library(${IMGUI_PROJECT} SHARED ${IMGUI_SRC} ${IMPLOT_SRC} ${IMFILEBROWSER_SRC} ${IMPLOT3D_SRC})
 endif()
 target_include_directories(${IMGUI_PROJECT} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/imgui-for-qa>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/implot-for-qa>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/imgui-filebrowser-for-qa>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/implot3d-for-qa>
     $<INSTALL_INTERFACE:include>
     $<INSTALL_INTERFACE:include/implot>
+    $<INSTALL_INTERFACE:include/implot3d>
     $<INSTALL_INTERFACE:include/imgui-filebrowser>
 )
 
@@ -281,4 +294,8 @@ install(
 install(
     FILES ${IMFILEBROWSER_INC}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/imgui-filebrowser
+)
+install(
+    FILES ${IMPLOT3D_INC}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/implot3d
 )
